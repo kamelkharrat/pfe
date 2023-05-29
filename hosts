@@ -1,0 +1,6 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.60.101 ops1.smartek.ae
+192.168.60.102 ops2.smartek.ae
+192.168.60.103 ops3.smartek.ae
+

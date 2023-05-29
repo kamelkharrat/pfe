@@ -1,0 +1,9 @@
+[Unit]
+Description=Redahead Service
+
+[Service]
+ExecStart=/bin/bash -c "echo {{ redahead_value }} > /etc/redahead_setting"
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

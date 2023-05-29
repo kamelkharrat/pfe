@@ -1,0 +1,52 @@
+- name: Import variables
+  vars_files:
+    - vars.yml
+
+
+
+- name: storage
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Create directory
+      file:
+        path: /mongo
+        state: directory
+    
+    - name: Create partition table
+      parted:
+        device: "{{ disk }}"
+        state: present
+
+    - name: Get free space on disk
+      shell: parted -m {{ disk }} unit % print free | tail -n 1 | cut -d ":" -f 2 | sed 's/[^0-9]*//g'
+      register: free_space
+
+    - name: Create partition
+      parted:
+        device: "{{ disk }}"
+        number: 1
+        state: present
+        part_start: "{{ free_space.stdout }}%"
+        part_end: "100%"
+
+    - name: Format partition with XFS
+      filesystem:
+        fstype: xfs
+        dev: "{{ disk }}"
+
+    - name: Mount partition
+      mount:
+        path: /mongo
+        src: "{{ disk }}"
+        fstype: xfs
+        state: mounted
+        opts: defaults
+
+    - name: Add new partition to fstab
+      lineinfile:
+        path: /etc/fstab
+        line: "{{ disk }} /mongo xfs defaults,noatime 1 1"
+        state: present

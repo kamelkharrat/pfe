@@ -1,0 +1,92 @@
+- name: MongoDB Production Notes
+  hosts: your_target_hosts
+  become: true
+  gather_facts: true
+
+  tasks:
+  - name: Set swappiness to 1
+    sysctl:
+      name: vm.swappiness
+      value: 1
+      state: present
+      reload: yes
+    notify: Reload sysctl settings  
+  
+  - name: Create redahead service file
+    template:
+      src: redahead.service.j2
+      dest: /etc/systemd/system/redahead.service
+    vars:
+      redahead_value: 8
+    notify: Reload sysctl settings
+
+  - name: Add lines to limits.conf
+    lineinfile:
+      path: /etc/security/limits.conf
+      line: "{{ item }}"
+      insertafter: EOF
+    with_items:
+      - "mongod  hard  fsize  unlimited"
+      - "mongod  soft  fsize  unlimited"
+      - "mongod  hard  cpu  unlimited"
+      - "mongod  soft  cpu  unlimited"
+      - "mongod  hard  as  unlimited"
+      - "mongod  soft  as  unlimited"
+      - "mongod  hard  memlock  unlimited"
+      - "mongod  soft  memlock  unlimited"
+      - "mongod  hard  nofile  64000"
+      - "mongod  soft  nofile  64000"
+      - "mongod  hard  noproc  64000"
+      - "mongod  soft  noproc  64000"
+    notify: restart mongod
+
+
+  - name: Create disable-transparent-huge-pages service file
+    copy:
+      content: |
+        [Unit]
+        Description=Disable Transparent Huge Pages (THP)
+        DefaultDependencies=no
+        After=sysinit.target local-fs.target
+        Before=mongod.service
+
+        [Service]
+        Type=oneshot
+        ExecStart=/bin/sh -c 'echo never | tee /sys/kernel/mm/transparent_hugepage/enabled > /dev/null'
+
+        [Install]
+        WantedBy=basic.target
+      dest: /etc/systemd/system/disable-transparent-huge-pages.service
+    notify: enable disable THP
+
+  - name: Install numactl package
+    yum:
+      name: numactl
+      state: present
+
+  - name: Disable zone reclaim
+    sysctl:
+      name: vm.zone_reclaim_mode
+      value: 0
+      sysctl_net: yes
+      state: present
+
+  handlers:
+    - name: Reload systemd services
+      systemd:
+        daemon_reload: yes
+        state: restarted
+        enabled: true    
+    - name: restart mongod
+      systemd:
+        name: mongod
+        state: restarted
+        enabled: true
+    
+    - name: restart mongod
+      systemd:
+        name: disable-transparent-huge-pages.service
+        state: started
+        enabled: true
+  
+

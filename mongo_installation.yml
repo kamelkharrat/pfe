@@ -1,0 +1,27 @@
+- name: connect as root
+  hosts: your_host
+  become: yes
+  
+  tasks:
+
+  - name: Add MongoDB repo to yum repos
+    yum_repository:
+      name: mongodb-enterprise-6.0.repo
+      baseurl: https://repo.mongodb.com/yum/redhat/$releasever/mongodb-enterprise/6.0/$basearch/
+      gpgcheck: true
+      gpgkey: https://www.mongodb.org/static/pgp/server-6.0.asc
+      enabled: true
+      state: present
+
+  - name: Install MongoDB
+    yum:
+      name: mongodb-enterprise-6.0.repo
+      state: present
+  
+  
+  handlers:
+    - name: enable mongod
+      systemd:
+        name: mongod
+        state: started
+        enabled: true  

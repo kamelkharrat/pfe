@@ -1,0 +1,37 @@
+
+- name: configuration
+  hosts: your_host
+  become: yes
+  
+  tasks:
+  - name: Replace MongoDB config file
+    copy:
+      src: /path/to/new/mongodb.conf
+      dest: /etc/mongod.conf
+      owner: root
+      group: root
+      mode: '0644'
+    
+#if load balancer
+  - name: Replace hosts file
+    copy:
+      src: /path/to/new/hosts
+      dest: /etc/hosts
+      owner: root
+      group: root
+      mode: '0644'
+
+
+  - name: Open MongoDB port #var in var files
+    firewalld:
+      port: 27017/tcp
+      permanent: yes
+      state: enabled
+    notify: Reload firewalld
+
+
+  handlers:
+  
+    - name: Reload firewalld
+      firewalld:
+        state: reloaded
