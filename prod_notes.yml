@@ -1,5 +1,5 @@
 - name: MongoDB Production Notes
-  hosts: localhost
+  hosts: localhost #inventory_prob
   become: true
   gather_facts: true
 
