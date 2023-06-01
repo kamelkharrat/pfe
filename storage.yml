@@ -5,7 +5,7 @@
 
 
 - name: storage
-  hosts: all
+  hosts: localhost
   become: true
 
   tasks:
@@ -50,3 +50,5 @@
         path: /etc/fstab
         line: "{{ disk }} /mongo xfs defaults,noatime 1 1"
         state: present
+
+        #add data and log directories
