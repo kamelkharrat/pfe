@@ -13,7 +13,7 @@
       when: avx_check.stdout == ""
 
     - name: Execute prod_notes playbook
-      import_playbook: prod_notes.yml
+      include: prod_notes.yml
 
     - name: Execute storage playbook
-      import_playbook: storage.yml
+      include: storage.yml
