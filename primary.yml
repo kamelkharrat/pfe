@@ -1,19 +1,17 @@
-- name: Primary Playbook
-  hosts: localhost
 
-  tasks:
-    - name: Check AVX support
-      command: "grep -o avx /proc/cpuinfo"
-      register: avx_check
+  # tasks:
+  #   - name: Check AVX support
+  #     command: "grep -o avx /proc/cpuinfo"
+  #     register: avx_check
 
 
-    - name: Fail playbook if AVX is not supported
-      fail:
-        msg: "AVX is not supported. Playbook execution halted."
-      when: avx_check.stdout == ""
+  #   - name: Fail playbook if AVX is not supported
+  #     fail:
+  #       msg: "AVX is not supported. Playbook execution halted."
+  #     when: avx_check.stdout == ""
 
-    - name: Execute prod_notes playbook
-      import_playbook: prod_notes.yml
+- name: Execute prod_notes playbook
+  import_playbook: prod_notes.yml
 
-    - name: Execute storage playbook
-      import_playbook: storage.yml
+- name: Execute storage playbook
+  import_playbook: storage.yml
