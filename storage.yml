@@ -1,10 +1,7 @@
-- name: Import variables
+- name: storage
   vars_files:
     - vars.yml
-
-
-
-- name: storage
+    
   hosts: localhost
   become: true
 
