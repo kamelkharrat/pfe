@@ -1,5 +1,5 @@
 - name: connect as root
-  hosts: your_host
+  hosts: localhost
   become: yes
   
   tasks:
