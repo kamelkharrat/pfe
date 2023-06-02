@@ -1,6 +1,8 @@
-
 - name: Execute prod_notes playbook
   import_playbook: prod_notes.yml
 
 - name: Execute storage playbook
   import_playbook: storage.yml
+
+- name: Execute configuration playbook
+  import_playbook: conf.yml
