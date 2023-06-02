@@ -1,9 +1,4 @@
 
-  hosts: all
-
-- name: Execute configuration playbook
-  import_playbook: conf.yml
-
 - name: Execute prod_notes playbook
   import_playbook: prod_notes.yml
 
