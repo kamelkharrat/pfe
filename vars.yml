@@ -1,2 +1,3 @@
 disk: "/dev/sdb"
 uuid: ""
+port: "27017/tcp"

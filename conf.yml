@@ -2,6 +2,8 @@
 - name: configuration
   hosts: localhost
   become: yes
+  vars_files:
+    - vars.yml
   
   tasks:
   - name: Replace MongoDB config file
@@ -24,7 +26,7 @@
 
   - name: Open MongoDB port #var in var files
     firewalld:
-      port: 27017/tcp
+      port: {{ port }}
       permanent: yes
       state: enabled
     notify: Reload firewalld
