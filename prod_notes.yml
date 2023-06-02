@@ -28,7 +28,7 @@
       dest: /etc/systemd/system/redahead.service
     vars:
       redahead_value: 8
-    notify: Reload systemd services
+    notify: enable redahead
 
   - name: Add lines to limits.conf
     lineinfile:
@@ -67,7 +67,7 @@
         [Install]
         WantedBy=basic.target
       dest: /etc/systemd/system/disable-transparent-huge-pages.service
-    notify: enable disable THP
+    notify: enable disabling THP
 
   - name: Install numactl package
     yum:
@@ -93,9 +93,14 @@
         state: restarted
         enabled: true
     
-    - name: restart mongod
+    - name: enable disabling THP
       systemd:
         name: disable-transparent-huge-pages.service
+        state: started
+        enabled: true
+    - name: enable redahead
+      systemd:
+        name: redahead.service
         state: started
         enabled: true
   
