@@ -15,6 +15,7 @@
       parted:
         device: "{{ disk }}"
         state: present
+        number: 1
 
     - name: Get free space on disk
       shell: parted -m {{ disk }} unit % print free | tail -n 1 | cut -d ":" -f 2 | sed 's/[^0-9]*//g'
