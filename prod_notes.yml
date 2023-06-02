@@ -4,6 +4,16 @@
   gather_facts: true
 
   tasks:
+  - name: Check AVX support
+    command: "grep -o avx /proc/cpuinfo"
+    register: avx_check
+
+
+  - name: Fail playbook if AVX is not supported
+    fail:
+      msg: "AVX is not supported. Playbook execution halted."
+    when: avx_check.stdout == ""
+    
   - name: Set swappiness to 1
     sysctl:
       name: vm.swappiness
