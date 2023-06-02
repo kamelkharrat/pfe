@@ -19,7 +19,7 @@
       dest: /etc/hosts
       owner: root
       group: root
-      mode: '0644'nj
+      mode: '0644'
 
 
   - name: Open MongoDB port #var in var files
