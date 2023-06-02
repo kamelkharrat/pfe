@@ -3,7 +3,6 @@
     - vars.yml
     
   hosts: localhost
-  become: true
 
   tasks:
 

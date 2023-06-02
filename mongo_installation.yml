@@ -1,6 +1,6 @@
 - name: connect as root
   hosts: localhost
-  become: yes
+
   
   tasks:
 
