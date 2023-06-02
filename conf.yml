@@ -26,7 +26,7 @@
 
   - name: Open MongoDB port #var in var files
     firewalld:
-      port: {{ port }}
+      port: "{{ port }}"
       permanent: yes
       state: enabled
     notify: Reload firewalld
