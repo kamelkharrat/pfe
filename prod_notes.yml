@@ -78,7 +78,7 @@
     sysctl:
       name: vm.zone_reclaim_mode
       value: 0
-      sysctl_net: yes
+      sysctl_set: yes
       state: present
 
   handlers:
