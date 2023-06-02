@@ -28,7 +28,7 @@
       dest: /etc/systemd/system/redahead.service
     vars:
       redahead_value: 8
-    notify: Reload sysctl settings
+    notify: Reload systemd services
 
   - name: Add lines to limits.conf
     lineinfile:
