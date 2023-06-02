@@ -1,25 +1,25 @@
 
 - name: configuration
-  hosts: your_host
+  hosts: localhost
   become: yes
   
   tasks:
   - name: Replace MongoDB config file
     copy:
-      src: /path/to/new/mongodb.conf
+      src: /mongo/data/mongodb.conf
       dest: /etc/mongod.conf
       owner: root
       group: root
       mode: '0644'
     
-#if load balancer
+#if DNS_existing (var in varfiles) (DNSmapping entre hostname et n  true do not apply / if else apply  
   - name: Replace hosts file
     copy:
-      src: /path/to/new/hosts
+      src: ./hosts
       dest: /etc/hosts
       owner: root
       group: root
-      mode: '0644'
+      mode: '0644'nj
 
 
   - name: Open MongoDB port #var in var files
