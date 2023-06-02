@@ -13,14 +13,14 @@
     fail:
       msg: "AVX is not supported. Playbook execution halted."
     when: avx_check.stdout == ""
-    
+
   - name: Set swappiness to 1
     sysctl:
       name: vm.swappiness
       value: 1
       state: present
       reload: yes
-    notify: Reload sysctl settings  
+    notify: Reload systemd services  
   
   - name: Create redahead service file
     template:
