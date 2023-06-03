@@ -1,4 +1,4 @@
-- name: connect as root
+- name: installation mongo
   hosts: localhost
 
   
@@ -17,7 +17,7 @@
     yum:
       name: mongodb-enterprise-6.0.repo
       state: present
-  
+    notify: enable mongod
   
   handlers:
     - name: enable mongod
