@@ -15,7 +15,7 @@
       state: present
 
   - name: Install MongoDB
-    yum:
+    ansible.builtin.yum:
       name: mongodb-enterprise-6.0.repo
       state: present
     notify: enable mongod
