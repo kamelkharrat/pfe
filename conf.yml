@@ -7,7 +7,7 @@
   tasks:
   - name: Replace MongoDB config file
     copy:
-      src: ./mongodb.conf
+      src: ./mongod.conf
       dest: /etc/mongod.conf
       owner: root
       group: root
