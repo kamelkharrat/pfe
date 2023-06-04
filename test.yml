@@ -1,6 +1,6 @@
 - name: Copy File to User's Desktop
   hosts: localhost
-  become: true
+  become: false
 
   tasks:
     - name: Copy file to user's desktop
