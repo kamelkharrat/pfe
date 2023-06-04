@@ -4,5 +4,8 @@
 - name: Execute storage playbook
   import_playbook: storage.yml
 
+- name: Execute MongoDB installation playbook
+  import_playbook: mongo_installation.yml
+
 - name: Execute configuration playbook
   import_playbook: conf.yml
