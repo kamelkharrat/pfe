@@ -16,7 +16,7 @@
 
   - name: Install MongoDB
     ansible.builtin.yum:
-      name: mongodb-enterprise-6.0.repo
+      name: mongodb-enterprise-6.0
       state: present
     notify: enable mongod
   
