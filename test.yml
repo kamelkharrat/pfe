@@ -6,5 +6,5 @@
     - name: Copy file to user's desktop
       copy:
         src: ./file.txt
-        dest: "{{ ansible_env.HOME }}/Desktop/file.txt"
-        remote_src: yes
+        dest: /home/file.txt
+
