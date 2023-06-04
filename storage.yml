@@ -6,10 +6,14 @@
 
   tasks:
 
-    - name: Create directory
+    - name: Create mongo directory
       file:
         path: /mongo
         state: directory
+        owner: mongod
+        group: mongod
+        mode: '0755'
+
     
     - name: Create partition table
       parted:
@@ -48,4 +52,18 @@
         line: "{{ disk }} /mongo xfs defaults,noatime 1 1"
         state: present
 
-        #add data and log directories
+    - name: Create data directory
+      file:
+        path: /mongo/data
+        state: directory
+        owner: mongod
+        group: mongod
+        mode: '0755'
+
+    - name: Create logs directory
+      file:
+        path: /mongo/log
+        state: directory
+        owner: mongod
+        group: mongod
+        mode: '0755'
