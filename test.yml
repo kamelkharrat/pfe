@@ -1,0 +1,10 @@
+- name: Copy File to User's Desktop
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Copy file to user's desktop
+      copy:
+        src: ./file.txt
+        dest: "/home/{{ ansible_user | quote }}/Desktop/file.txt"
+        remote_src: yes

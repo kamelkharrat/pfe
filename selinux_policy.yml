@@ -1,0 +1,22 @@
+- name: connect as root
+  hosts: localhost
+  become: yes
+  
+  
+  tasks:
+
+  - name: Install additional packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - git
+      - make
+      - checkpolicy
+      - policycoreutils
+      - selinux-policy-devel
+
+  - name: Clone mongodb-selinux repository
+    git:
+      repo: https://github.com/mongodb/mongodb-selinux
+      dest: /path/to/clone/mongodb-selinux
