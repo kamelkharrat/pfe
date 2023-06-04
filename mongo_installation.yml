@@ -6,8 +6,8 @@
 
   - name: Add MongoDB repo to yum repos
     yum_repository:
-      name: mongodb-enterprise-6.0
-      description: mongodb-enterprise-6.0
+      name: mongodb-enterprise-6.0.name
+      description: mongodb-enterprise-6.0.description
       baseurl: https://repo.mongodb.com/yum/redhat/$releasever/mongodb-enterprise/6.0/$basearch/
       gpgcheck: true
       gpgkey: https://www.mongodb.org/static/pgp/server-6.0.asc
