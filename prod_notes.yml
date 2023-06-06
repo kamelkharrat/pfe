@@ -1,5 +1,5 @@
 - name: MongoDB Production Notes
-  hosts: localhost #inventory_prob
+  hosts: smartek #inventory_prob
   
   gather_facts: true
 

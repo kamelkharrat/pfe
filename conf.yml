@@ -1,6 +1,6 @@
 
 - name: configuration
-  hosts: smartek.ae
+  hosts: smartek
   vars_files:
     - vars.yml
   
