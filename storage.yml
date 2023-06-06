@@ -2,7 +2,7 @@
   vars_files:
     - vars.yml
     
-  hosts: localhost
+  hosts: smartek.ae
 
   tasks:
 

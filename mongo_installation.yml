@@ -1,5 +1,5 @@
 - name: installation mongo
-  hosts: localhost
+  hosts: smartek.ae
 
   
   tasks:
