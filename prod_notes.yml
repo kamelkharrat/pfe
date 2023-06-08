@@ -21,7 +21,7 @@
       value: 1
       state: present
       reload: yes
-    notify: Reload systemd services  
+
   
   - name: Create redahead service file
     template:
@@ -83,11 +83,7 @@
       state: present
 
   handlers:
-    - name: Reload systemd services
-      systemd:
-        daemon_reload: yes
-        state: restarted
-        enabled: true    
+ 
     - name: restart mongod
       systemd:
         name: mongod
