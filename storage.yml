@@ -8,6 +8,11 @@
 
   tasks:
 
+    - name: UnMount disk mounted on Mongo
+      mount:
+        path: /mongo
+        state: unmounted
+        
     - name: Create mongo directory
       file:
         path: /mongo
@@ -40,13 +45,6 @@
         fstype: xfs
         dev: "{{ disk }}"
 
-    - name: Mount partition
-      mount:
-        path: /mongo
-        src: "{{ disk }}"
-        fstype: xfs
-        state: mounted
-        opts: defaults
 
     - name: Add new partition to fstab
       lineinfile:
@@ -54,6 +52,13 @@
         line: "{{ disk }} /mongo xfs defaults,noatime 1 1"
         state: present
 
+    - name: Mount partition
+      mount:
+        path: /mongo
+        src: "{{ disk }}"
+        fstype: xfs
+        state: mounted
+        
     - name: Create data directory
       file:
         path: /mongo/data
