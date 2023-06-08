@@ -1,6 +1,7 @@
 - name: MongoDB Production Notes
   hosts: smartek #inventory_prob
-  
+  become: true
+  become_method: sudo
   gather_facts: true
 
   tasks:
