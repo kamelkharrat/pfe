@@ -3,6 +3,8 @@
     - vars.yml
     
   hosts: smartek
+  become: true
+  become_method: sudo
 
   tasks:
 

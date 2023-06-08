@@ -1,5 +1,7 @@
 - name: installation mongo
   hosts: smartek
+  become: true
+  become_method: sudo
 
   
   tasks:
