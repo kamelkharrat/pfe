@@ -6,10 +6,10 @@
   tasks:
 
   - name: Install MongoDB Shell
-      yum:
-        name: community.mongodb.mongodb_shell
-        state: present
-      notify: enable mongod
+    yum:
+      name: community.mongodb.mongodb_shell
+      state: present
+    notify: enable mongod
   
   handlers:
     - name: enable mongod
