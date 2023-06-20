@@ -18,6 +18,8 @@
     yum:
       name: /home/ops2/opsmanager.rpm
       state: present
+      disable_gpg_check: yes
+
 
 
 
