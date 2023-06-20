@@ -7,10 +7,7 @@
   become_method: sudo
   
   tasks:
-  - name: Create Ops Manager installation directory
-    file:
-      path: /home/ops2/opsmanager
-      state: directory
+
 
   - name: Download Ops Manager RPM package
     get_url:
@@ -19,7 +16,7 @@
 
   - name: Install Ops Manager
     yum:
-      name: /home/ops2/mongodb-mms-6.0.14.100.20230530T1837Z.x86_64.rpm
+      name: /home/ops2/opsmanager.rpm
       state: present
 
 
