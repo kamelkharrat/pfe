@@ -1,0 +1,19 @@
+- name: mongoshell playbook
+  hosts: ops1.smartek.ae
+  become: true
+  become_method: sudo
+  
+  tasks:
+
+  - name: Install MongoDB Shell
+      yum:
+        name: community.mongodb.mongodb_shell
+        state: present
+      notify: enable mongod
+  
+  handlers:
+    - name: enable mongod
+      systemd:
+        name: mongod
+        state: started
+        enabled: true    
