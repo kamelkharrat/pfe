@@ -19,4 +19,8 @@
   - name: Clone mongodb-selinux repository
     git:
       repo: https://github.com/mongodb/mongodb-selinux
-      dest: /path/to/clone/mongodb-selinux
+      dest: /home/mongodb-selinux
+      force: yes
+      owner: root
+      group: root
+      mode: "0755"

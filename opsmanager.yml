@@ -1,0 +1,53 @@
+
+- name: Ops manager Install & Config
+  hosts: smartek
+  vars_files:
+    - vars.yml
+  become: true
+  become_method: sudo
+  
+  tasks:
+  - name: Create Ops Manager installation directory
+    file:
+      path: /home/ops2/opsmanager
+      state: directory
+
+  - name: Download Ops Manager RPM package
+    get_url:
+      url: https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-6.0.14.100.20230530T1837Z.x86_64.rpm
+      dest: /home/ops2/opsmanager.rpm
+
+  - name: Install Ops Manager
+    yum:
+      name: /home/ops2/mongodb-mms-6.0.14.100.20230530T1837Z.x86_64.rpm
+      state: present
+
+
+
+  - name: Open Ops Manager port #var in var files
+    firewalld:
+      port: "{{ port_opsmanager }}"
+      permanent: yes
+      state: enabled
+    notify: Reload firewalld
+
+  - name: Replace Ops Manager config file
+    copy:
+      src: ./conf-mms.properties
+      dest: /opt/mongodb/mms/conf/conf-mms.properties
+      owner: root
+      group: root
+      mode: '0644'
+    notify: enable opsmanager
+
+  handlers:
+  
+    - name: Reload firewalld
+      firewalld:
+        state: reloaded
+ 
+    - name: enable opsmanager
+      systemd:
+        name: mongodb-mms
+        state: started
+        enabled: true

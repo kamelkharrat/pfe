@@ -1,3 +1,4 @@
 disk: "/dev/vdb"
 uuid: ""
-port: "27017/tcp"
+port_mongo: "27017/tcp"
+port_opsmanager: "8080/tcp"
