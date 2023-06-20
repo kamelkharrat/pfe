@@ -6,5 +6,4 @@
   tasks:
 
   - name: Install MongoDB Shell
-    command: ansible-galaxy collection install community.mongodb.mongodb_shell
-    
+    command: ansible-galaxy collection install community
