@@ -6,14 +6,5 @@
   tasks:
 
   - name: Install MongoDB Shell
-    yum:
-      name: community.mongodb.mongodb_shell
-      state: present
-    notify: enable mongod
-  
-  handlers:
-    - name: enable mongod
-      systemd:
-        name: mongod
-        state: started
-        enabled: true    
+    command: ansible-galaxy collection install community.mongodb.mongodb_shell
+    
