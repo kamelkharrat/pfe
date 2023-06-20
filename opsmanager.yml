@@ -20,18 +20,12 @@
       state: present
       disable_gpg_check: yes
 
-
-
-
   - name: Open Ops Manager port #var in var files
     firewalld:
       port: "{{ port_opsmanager }}"
       permanent: yes
+      immediate: yes
       state: enabled
-
-  - name: Reload firewalld
-    firewalld:
-      state: restarted
 
   - name: Replace Ops Manager config file
     copy:
