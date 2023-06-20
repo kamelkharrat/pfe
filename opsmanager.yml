@@ -43,7 +43,7 @@
   
     - name: Reload firewalld
       firewalld:
-        state: reloaded
+        state: restarted
  
     - name: enable opsmanager
       systemd:
