@@ -11,7 +11,7 @@
 
   - name: Download Ops Manager RPM package
     get_url:
-      url: https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-6.0.14.100.20230530T1837Z.x86_64.rpm
+      url: "{{ opsmanager_rmp_url }}"
       dest: /home/ops2/opsmanager.rpm
 
   - name: Install Ops Manager
@@ -20,9 +20,9 @@
       state: present
       disable_gpg_check: yes
 
-  - name: Open Ops Manager port #var in var files
+  - name: Open Ops Manager port
     firewalld:
-      port: "{{ port_opsmanager }}"
+      port: "{{ opsmanager_port }}"
       permanent: yes
       immediate: yes
       state: enabled
