@@ -26,6 +26,10 @@
       permanent: yes
       immediate: yes
       state: enabled
+    notify: reload firewalld
+
+
+
 
   - name: Replace Ops Manager config file
     copy:
@@ -40,3 +44,9 @@
       name: mongodb-mms
       state: started
       enabled: true
+
+  handlers:
+   - name: reload firewalld
+     systemd:
+      name: firewalld
+      state: reloaded
