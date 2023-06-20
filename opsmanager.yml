@@ -28,7 +28,10 @@
       port: "{{ port_opsmanager }}"
       permanent: yes
       state: enabled
-    notify: Reload firewalld
+
+  - name: Reload firewalld
+    firewalld:
+      state: restarted
 
   - name: Replace Ops Manager config file
     copy:
@@ -37,16 +40,9 @@
       owner: root
       group: root
       mode: '0644'
-    notify: enable opsmanager
 
-  handlers:
-  
-    - name: Reload firewalld
-      firewalld:
-        state: restarted
- 
-    - name: enable opsmanager
-      systemd:
-        name: mongodb-mms
-        state: started
-        enabled: true
+  - name: enable opsmanager
+    systemd:
+      name: mongodb-mms
+      state: started
+      enabled: true
