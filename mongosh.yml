@@ -30,7 +30,7 @@
   - name: Initiate MongoDB replica set
     community.mongodb.mongodb_shell:
       eval: "rs.initiate()"
-      login_host: ops1.smartek.ae:27017
+      
 
   - name: add nodes
     community.mongodb.mongodb_shell:
