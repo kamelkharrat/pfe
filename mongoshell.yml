@@ -6,4 +6,35 @@
   tasks:
 
   - name: Install MongoDB Shell
-    command: ansible-galaxy collection install community.mongodb
+    command: ansible-galaxy collection install community.mongodb #manuel
+
+  - name: Add MongoDB repo to yum repos
+    yum_repository:
+      name: mongodb-enterprise-6.0
+      description: MongoDB Enterprise Repository
+      baseurl: https://repo.mongodb.com/yum/redhat/$releasever/mongodb-enterprise/6.0/$basearch/
+      gpgcheck: true
+      gpgkey: https://www.mongodb.org/static/pgp/server-6.0.asc
+      enabled: true
+      state: present
+
+  - name: Install Mongoshell
+    ansible.builtin.yum:
+      name: mongosh
+      state: present
+
+  - name: Initiate MongoDB replica set
+    community.mongodb.mongodb_shell:
+      eval: "rs.initiate()"
+      login_host: ops1.smartek.ae:27017
+
+  - name: add nodes
+    community.mongodb.mongodb_shell:
+      eval: "rs.add("{{ item }}")"
+      login_host: ops1.smartek.ae:27017
+    with_item:
+      - ops2.smartek.ae:27017
+      - ops3.smartek.ae:27017
+
+
+
