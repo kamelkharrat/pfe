@@ -30,7 +30,7 @@
 
   - name: add nodes
     community.mongodb.mongodb_shell:
-      eval: "rs.add("{{ item }}")"
+      eval: "rs.add(' {{ item }} ')"
       login_host: ops1.smartek.ae:27017
     with_items:
       - ops2.smartek.ae:27017
