@@ -25,7 +25,12 @@
       name: mongodb-enterprise
       state: present
     when: mongosh_check.rc != 0
-    notify: enable mongod  
+
+  - name: enable mongod
+    systemd:
+      name: mongod
+      state: started
+      enabled: true  
 
   - name: Initiate MongoDB replica set
     community.mongodb.mongodb_shell:
@@ -40,13 +45,7 @@
     with_items:
       - ops2.smartek.ae:27017
       - ops3.smartek.ae:27017
-  
-  handlers:
-    - name: enable mongod
-      systemd:
-        name: mongod
-        state: started
-        enabled: true  
+
 
 
 
