@@ -10,3 +10,6 @@
 
 - name: Execute configuration playbook
   import_playbook: conf.yml
+
+- name: Execute mongosh playbook
+  import_playbook: mongosh.yml
