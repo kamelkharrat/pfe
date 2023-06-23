@@ -14,7 +14,7 @@
       owner: root
       group: root
       mode: '0644'
-    notify: Reload restart mongod    
+    notify: restart mongod    
     
 #if DNS_existing var in varfiles DNSmapping entre hostname et n  true do not apply / if else apply  
   - name: Replace hosts file
