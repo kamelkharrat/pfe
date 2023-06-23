@@ -10,9 +10,8 @@
     ignore_errors: true
 
   - name: Include other playbook if Mongosh is not installed
-    include_playbook: mongo_installation.yml
+    import_playbook: mongo_installation.yml
     when: mongosh_check.rc != 0
-
 
   - name: Initiate MongoDB replica set
     community.mongodb.mongodb_shell:
