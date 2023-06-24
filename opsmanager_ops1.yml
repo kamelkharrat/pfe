@@ -47,17 +47,30 @@
   
   - name: Change ownership of /etc/mongodb-mms
     file:
-      path: /etc/mongodb-mms
+      path: /etc/mongodb-mms/gen.key
       owner: ops2
-      group: root
+      group: ops2
       recurse: yes
+  
   - name: Copy gen.key file
     copy:
       src: /etc/mongodb-mms/gen.key
       dest: /home/ops2/
-      owner: root
-      group: root
+      owner: ops2
+      group: ops2
       mode: '0600'
+
+  - name: Copy file using scp to ops2.smartek.ae
+    ansible.builtin.copy:
+      src: /home/ops2/file.txt
+      dest: /etc/mongodb-mms/
+    delegate_to: ops2.smartek.ae
+
+  - name: Copy file using scp to ops3.smartek.ae
+    ansible.builtin.copy:
+      src: /home/ops2/file.txt
+      dest: /etc/mongodb-mms/
+    delegate_to: ops3.smartek.ae
 
   # handlers:
   #  - name: reload firewalld
