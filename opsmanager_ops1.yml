@@ -8,6 +8,40 @@
   
   tasks:
 
+  - name: Download Ops Manager RPM package
+    get_url:
+      url: "{{ opsmanager_rmp_url }}"
+      dest: /home/ops2/opsmanager.rpm
+
+  - name: Install Ops Manager
+    yum:
+      name: /home/ops2/opsmanager.rpm
+      state: present
+      disable_gpg_check: yes
+
+  - name: Open Ops Manager port
+    firewalld:
+      port: "{{ opsmanager_port }}"
+      permanent: yes
+      immediate: yes
+      state: enabled
+    notify: reload firewalld
+
+  - name: Replace Ops Manager config file
+    copy:
+      src: ./conf-mms.properties
+      dest: /opt/mongodb/mms/conf/conf-mms.properties
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: enable opsmanager
+    systemd:
+      name: mongodb-mms
+      state: started
+      enabled: true
+  
+  
   - name: Change ownership of /etc/mongodb-mms
     file:
       path: /etc/mongodb-mms
@@ -33,52 +67,24 @@
   - name: Copy gen key to ops2.smartek.ae
     ansible.builtin.copy:
       src: /tmp/gen.key
-      dest: /etc/mongodb-mms/
+      dest: /home/ops2/
     delegate_to: ops2.smartek.ae
   
-  # - name: Download Ops Manager RPM package
-  #   get_url:
-  #     url: "{{ opsmanager_rmp_url }}"
-  #     dest: /home/ops2/opsmanager.rpm
+  - name: Copy gen key to ops3.smartek.ae
+    ansible.builtin.copy:
+      src: /tmp/gen.key
+      dest: /home/ops2/
+    delegate_to: ops3.smartek.ae
 
-  # - name: Install Ops Manager
-  #   yum:
-  #     name: /home/ops2/opsmanager.rpm
-  #     state: present
-  #     disable_gpg_check: yes
+  - name: Change ownership of /etc/mongodb-mms
+    file:
+      path: /etc/mongodb-mms
+      owner: mongodb-mms
+      group: mongodb-mms
+      recurse: yes
 
-  # - name: Open Ops Manager port
-  #   firewalld:
-  #     port: "{{ opsmanager_port }}"
-  #     permanent: yes
-  #     immediate: yes
-  #     state: enabled
-  #   notify: reload firewalld
-
-
-
-
-  # - name: Replace Ops Manager config file
-  #   copy:
-  #     src: ./conf-mms.properties
-  #     dest: /opt/mongodb/mms/conf/conf-mms.properties
-  #     owner: root
-  #     group: root
-  #     mode: '0644'
-
-  # - name: enable opsmanager
-  #   systemd:
-  #     name: mongodb-mms
-  #     state: started
-  #     enabled: true
-
-  # - name: Copy file using scp to ops2.smartek.ae
-  #   synchronize:
-  #     src: /home/ops2/file.txt
-  #     dest: ops2.smartek.ae:/home/ops2
-
-  # handlers:
-  #  - name: reload firewalld
-  #    systemd:
-  #     name: firewalld
-  #     state: reloaded
+  handlers:
+   - name: reload firewalld
+     systemd:
+      name: firewalld
+      state: reloaded
