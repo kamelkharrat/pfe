@@ -44,6 +44,14 @@
       name: mongodb-mms
       state: started
       enabled: true
+  
+  - name: Copy gen.key file
+    copy:
+      src: /etc/mongodb-mms/gen.key
+      dest: /home/ops2/
+      owner: mongodb-mms
+      group: mongodb-mms
+      mode: '0600'
 
   handlers:
    - name: reload firewalld
