@@ -51,8 +51,7 @@
       owner: ops2
       group: ops2
       recurse: yes
-  
-  - name: Copy gen.key file
+ - name: Copy gen.key file
     copy:
       src: /etc/mongodb-mms/gen.key
       dest: /home/ops2/
@@ -60,10 +59,23 @@
       group: ops2
       mode: '0600'
 
-  - name: Copy file using scp to ops2.smartek.ae
-    synchronize:
-      src: /home/ops2/file.txt
-      dest: ops2.smartek.ae:/home/ops2
+  - name: Fetch file from source host
+  ansible.builtin.fetch:
+    src: /home/ops2/file.txt
+    dest: /tmp/
+    flat: yes
+  delegate_to: ops1.smartek.ae
+
+- name: Copy file to destination host
+  ansible.builtin.copy:
+    src: /tmp/file.txt
+    dest: /etc/mongodb-mms/
+  delegate_to: ops2.smartek.ae
+
+  # - name: Copy file using scp to ops2.smartek.ae
+  #   synchronize:
+  #     src: /home/ops2/file.txt
+  #     dest: ops2.smartek.ae:/home/ops2
 
   # handlers:
   #  - name: reload firewalld
