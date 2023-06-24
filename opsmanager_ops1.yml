@@ -14,6 +14,7 @@
       owner: ops2
       group: ops2
       recurse: yes
+      
   - name: Copy gen.key file
     copy:
       src: /etc/mongodb-mms/gen.key
@@ -22,19 +23,19 @@
       group: ops2
       mode: '0600'
 
-  - name: Fetch file from source host
-  ansible.builtin.fetch:
-    src: /home/ops2/gen.key
-    dest: /tmp/
-    flat: yes
-  delegate_to: ops1.smartek.ae
+  - name: Fetch gen key from ops1.smartek.ae
+    ansible.builtin.fetch:
+      src: /home/ops2/gen.key
+      dest: /tmp/
+      flat: yes
+    delegate_to: ops1.smartek.ae 
 
-  - name: Copy file to destination host
-  ansible.builtin.copy:
-    src: /tmp/gen.key
-    dest: /etc/mongodb-mms/
-  delegate_to: ops2.smartek.ae
-
+  - name: Copy gen key to ops2.smartek.ae
+    ansible.builtin.copy:
+      src: /tmp/gen.key
+      dest: /etc/mongodb-mms/
+      flat: yes
+    delegate_to: ops2.smartek.ae
   
   # - name: Download Ops Manager RPM package
   #   get_url:
