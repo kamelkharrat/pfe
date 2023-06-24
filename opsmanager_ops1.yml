@@ -47,7 +47,7 @@
   
   - name: Change ownership of /etc/mongodb-mms
     file:
-      path: /etc/mongodb-mms/gen.key
+      path: /etc/mongodb-mms
       owner: ops2
       group: ops2
       recurse: yes
