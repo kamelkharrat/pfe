@@ -61,16 +61,9 @@
       mode: '0600'
 
   - name: Copy file using scp to ops2.smartek.ae
-    ansible.builtin.copy:
+    sychronize:
       src: /home/ops2/file.txt
-      dest: /etc/mongodb-mms/
-    delegate_to: ops2.smartek.ae
-
-  - name: Copy file using scp to ops3.smartek.ae
-    ansible.builtin.copy:
-      src: /home/ops2/file.txt
-      dest: /etc/mongodb-mms/
-    delegate_to: ops3.smartek.ae
+      dest: ops2.smartek.ae:/etc/mongodb-mms/
 
   # handlers:
   #  - name: reload firewalld
