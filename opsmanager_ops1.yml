@@ -8,7 +8,34 @@
   
   tasks:
 
+  - name: Change ownership of /etc/mongodb-mms
+    file:
+      path: /etc/mongodb-mms
+      owner: ops2
+      group: ops2
+      recurse: yes
+  - name: Copy gen.key file
+    copy:
+      src: /etc/mongodb-mms/gen.key
+      dest: /home/ops2/
+      owner: ops2
+      group: ops2
+      mode: '0600'
 
+  - name: Fetch file from source host
+  ansible.builtin.fetch:
+    src: /home/ops2/gen.key
+    dest: /tmp/
+    flat: yes
+  delegate_to: ops1.smartek.ae
+
+  - name: Copy file to destination host
+  ansible.builtin.copy:
+    src: /tmp/gen.key
+    dest: /etc/mongodb-mms/
+  delegate_to: ops2.smartek.ae
+
+  
   # - name: Download Ops Manager RPM package
   #   get_url:
   #     url: "{{ opsmanager_rmp_url }}"
@@ -44,33 +71,6 @@
   #     name: mongodb-mms
   #     state: started
   #     enabled: true
-  
-  - name: Change ownership of /etc/mongodb-mms
-    file:
-      path: /etc/mongodb-mms
-      owner: ops2
-      group: ops2
-      recurse: yes
-  - name: Copy gen.key file
-    copy:
-      src: /etc/mongodb-mms/gen.key
-      dest: /home/ops2/
-      owner: ops2
-      group: ops2
-      mode: '0600'
-
-  - name: Fetch file from source host
-  ansible.builtin.fetch:
-    src: /home/ops2/file.txt
-    dest: /tmp/
-    flat: yes
-  delegate_to: ops1.smartek.ae
-
-- name: Copy file to destination host
-  ansible.builtin.copy:
-    src: /tmp/file.txt
-    dest: /etc/mongodb-mms/
-  delegate_to: ops2.smartek.ae
 
   # - name: Copy file using scp to ops2.smartek.ae
   #   synchronize:
