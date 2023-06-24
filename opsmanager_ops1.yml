@@ -49,8 +49,8 @@
     copy:
       src: /etc/mongodb-mms/gen.key
       dest: /home/ops2/
-      owner: mongodb-mms
-      group: mongodb-mms
+      owner: ops2
+      group: ops2
       mode: '0600'
 
   handlers:
