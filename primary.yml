@@ -13,3 +13,9 @@
 
 - name: Execute mongosh playbook
   import_playbook: mongosh.yml
+
+- name: Execute opsmanager playbook on ops1.smartek.ae playbook
+  import_playbook: opsmanager_ops1.yml
+
+- name: Execute opsmanager playbook on ops2.smartek.ae playbook
+  import_playbook: opsmanager_ops2_ops3.yml
