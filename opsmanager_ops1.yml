@@ -45,6 +45,12 @@
   #     state: started
   #     enabled: true
   
+  - name: Change ownership of /etc/mongodb-mms
+    file:
+      path: /etc/mongodb-mms
+      owner: ops2
+      group: root
+      recurse: yes
   - name: Copy gen.key file
     copy:
       src: /etc/mongodb-mms/gen.key
