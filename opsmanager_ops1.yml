@@ -14,7 +14,7 @@
       owner: ops2
       group: ops2
       recurse: yes
-      
+
   - name: Copy gen.key file
     copy:
       src: /etc/mongodb-mms/gen.key
@@ -34,7 +34,6 @@
     ansible.builtin.copy:
       src: /tmp/gen.key
       dest: /etc/mongodb-mms/
-      flat: yes
     delegate_to: ops2.smartek.ae
   
   # - name: Download Ops Manager RPM package
