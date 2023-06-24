@@ -61,7 +61,7 @@
       mode: '0600'
 
   - name: Copy file using scp to ops2.smartek.ae
-    sychronize:
+    synchronize:
       src: /home/ops2/file.txt
       dest: ops2.smartek.ae:/etc/mongodb-mms/
 
