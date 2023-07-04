@@ -9,7 +9,7 @@
     register: mongosh_check
     ignore_errors: true
 
-  - name: Include other playbook if Mongosh is not installed
+  - name: add mongodb-enterprise yum repo
     yum_repository:
       name: mongodb-enterprise-6.0
       description: MongoDB Enterprise Repository

@@ -1,5 +1,4 @@
 - name: Execute prod_notes playbook
-  
   import_playbook: prod_notes.yml
 
 - name: Execute storage playbook
@@ -19,3 +18,5 @@
 
 - name: Execute opsmanager playbook on ops2.smartek.ae playbook
   import_playbook: opsmanager_ops2_ops3.yml
+
+  

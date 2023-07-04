@@ -33,29 +33,6 @@
       state: enabled
     notify: Reload firewalld
 
-  # - name: Generate private key
-  #   openssl_privatekey:
-  #     path: /path/to/private.key
-  #     size: 2048
-  #   register: private_key
-
-  # - name: Generate certificate signing request (CSR)
-  #   openssl_csr:
-  #     path: /path/to/csr.pem
-  #     privatekey_path: /path/to/private.key
-  #     common_name: example.com
-  #     subject_alt_name: "ops1.smartek.ae, ops2.smartek.ae"
-  #   register: csr
-
-  # - name: Generate self-signed certificate
-  #   openssl_certificate:
-  #     path: /path/to/certificate.crt
-  #     privatekey_path: /path/to/private.key
-  #     csr_path: /path/to/csr.pem
-  #     provider: selfsigned
-  #     days: 365
-  #   register: certificate
-
   handlers:
   
     - name: Reload firewalld

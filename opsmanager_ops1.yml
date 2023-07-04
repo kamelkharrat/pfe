@@ -27,7 +27,7 @@
       state: enabled
     notify: reload firewalld
 
-  - name: Replace Ops Manager config file
+  - name: Replace Ops Manager conf-mms.properties file
     copy:
       src: ./conf-mms.properties
       dest: /opt/mongodb/mms/conf/conf-mms.properties

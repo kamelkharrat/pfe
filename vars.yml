@@ -1,5 +1,8 @@
 disk: "/dev/vdb"
-uuid: ""
 mongo_port: "27017/tcp"
 opsmanager_port: "8080/tcp"
 opsmanager_rmp_url: "https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-6.0.14.100.20230530T1837Z.x86_64.rpm"
+
+
+
+

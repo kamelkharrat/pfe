@@ -1,0 +1,17 @@
+- name: disable selinux
+  hosts: smartek
+  become: true
+  become_method: sudo
+
+  tasks:
+
+  - name: Set SELinux to disabled mode
+    selinux:
+      policy: targeted
+      state: disabled
+
+  - name: Update SELinux configuration file
+    lineinfile:
+      path: /etc/selinux/config
+      regex: '^SELINUX='
+      line: 'SELINUX=disabled'

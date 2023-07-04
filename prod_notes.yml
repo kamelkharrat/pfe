@@ -49,7 +49,6 @@
       - "mongod  soft  nofile  64000"
       - "mongod  hard  noproc  64000"
       - "mongod  soft  noproc  64000"
-    notify: restart mongod
 
 
   - name: Create disable-transparent-huge-pages service file
@@ -84,12 +83,6 @@
 
   handlers:
  
-    - name: restart mongod
-      systemd:
-        name: mongod
-        state: restarted
-        enabled: true
-    
     - name: enable disabling THP
       systemd:
         name: disable-transparent-huge-pages.service
