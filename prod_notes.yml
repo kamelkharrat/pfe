@@ -82,15 +82,16 @@
       state: present
 
   handlers:
- 
-    - name: enable disabling THP
-      systemd:
-        name: disable-transparent-huge-pages.service
-        state: started
-        enabled: true
+
     - name: enable redahead
       systemd:
         name: redahead.service
+        state: started
+        enabled: true
+
+    - name: enable disabling THP
+      systemd:
+        name: disable-transparent-huge-pages.service
         state: started
         enabled: true
   
