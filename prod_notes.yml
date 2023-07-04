@@ -29,7 +29,6 @@
       dest: /etc/systemd/system/redahead.service
     vars:
       redahead_value: 8
-    notify: enable redahead
 
   - name: Add lines to limits.conf
     lineinfile:
@@ -80,14 +79,6 @@
       value: 0
       sysctl_set: yes
       state: present
-
-  handlers:
-
-    - name: enable redahead
-      systemd:
-        name: redahead.service
-        state: started
-        enabled: true
 
   
 
