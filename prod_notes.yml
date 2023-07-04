@@ -67,7 +67,7 @@
         [Install]
         WantedBy=basic.target
       dest: /etc/systemd/system/disable-transparent-huge-pages.service
-    notify: enable disabling THP
+
 
   - name: Install numactl package
     yum:
@@ -89,10 +89,5 @@
         state: started
         enabled: true
 
-    - name: enable disabling THP
-      systemd:
-        name: disable-transparent-huge-pages.service
-        state: started
-        enabled: true
   
 
