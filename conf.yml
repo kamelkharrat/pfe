@@ -26,7 +26,7 @@
       mode: '0644'
 
 
-  - name: Open MongoDB port #var in var files
+  - name: Open MongoDB port 
     firewalld:
       port: "{{ mongo_port }}"
       permanent: yes
