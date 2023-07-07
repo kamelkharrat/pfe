@@ -64,6 +64,13 @@
       flat: yes
     delegate_to: ops1.smartek.ae 
 
+      - name: ReChange ownership of /etc/mongodb-mms
+    file:
+      path: /etc/mongodb-mms
+      owner: mongodb-mms
+      group: mongodb-mms
+      recurse: yes
+
   - name: Copy gen key to ops2.smartek.ae
     ansible.builtin.copy:
       src: /tmp/gen.key
@@ -76,12 +83,6 @@
       dest: /home/ops2/
     delegate_to: ops3.smartek.ae
 
-  - name: Change ownership of /etc/mongodb-mms
-    file:
-      path: /etc/mongodb-mms
-      owner: mongodb-mms
-      group: mongodb-mms
-      recurse: yes
 
   handlers:
    - name: reload firewalld
